@@ -37,7 +37,8 @@ if (jQuery) (function ($) {
 
         var trigger = event ? $(this) : object,
             jqDropdown = $(trigger.attr('data-jq-dropdown')),
-            isOpen = trigger.hasClass('jq-dropdown-open');
+            isOpen = trigger.hasClass('jq-dropdown-open'),
+            animationDuration = trigger ? parseInt(trigger.attr('data-jq-duration') || 250, 10) : null;
 
         // In some cases we don't want to show it
         if (event) {
@@ -56,7 +57,7 @@ if (jQuery) (function ($) {
         trigger.addClass('jq-dropdown-open');
         jqDropdown
             .data('jq-dropdown-trigger', trigger)
-            .show();
+            .fadeIn(animationDuration);
 
         // Position it
         position();
@@ -73,7 +74,10 @@ if (jQuery) (function ($) {
     function hide(event) {
 
         // In some cases we don't hide them
-        var targetGroup = event ? $(event.target).parents().addBack() : null;
+        var targetGroup = event ? $(event.target).parents().addBack() : null,
+            jqDropdown = $('.jq-dropdown:visible').eq(0),
+            trigger = jqDropdown.data('jq-dropdown-trigger'),
+            animationDuration = trigger ? parseInt(trigger.attr('data-jq-duration') || 250, 10) : null;
 
         // Are we clicking anywhere in a jq-dropdown?
         if (targetGroup && targetGroup.is('.jq-dropdown')) {
@@ -91,7 +95,7 @@ if (jQuery) (function ($) {
         $(document).find('.jq-dropdown:visible').each(function () {
             var jqDropdown = $(this);
             jqDropdown
-                .hide()
+                .fadeOut(animationDuration)
                 .removeData('jq-dropdown-trigger')
                 .trigger('hide', { jqDropdown: jqDropdown });
         });
