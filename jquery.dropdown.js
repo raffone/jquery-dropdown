@@ -63,11 +63,11 @@ if (jQuery) (function ($) {
         position();
 
         // Trigger the show callback
-        jqDropdown
-            .trigger('show', {
-                jqDropdown: jqDropdown,
-                trigger: trigger
-            });
+        // jqDropdown
+        //     .trigger('show', {
+        //         jqDropdown: jqDropdown,
+        //         trigger: trigger
+        //     });
 
     }
 
